@@ -35,8 +35,6 @@ class ppop3():
         self.send('+OK pMail Sever POP3 server ready <%d.%d@%s>\r\n'%(os.getpid(),int(time.time()),self.__domianname))
         
     def parse(self, line_string):
-        #sys.stdout.write(line_string)
-        #sys.stdout.flush()
         cmd_string = re.split('\r|\n', line_string, 1)[0]
         cmd_unit = re.split(' |\t', cmd_string)
         cmd_main = cmd_unit[0].lower()
@@ -48,13 +46,11 @@ class ppop3():
             self.__password = cmd_unit[1]
             if self.__ps.checklogin(self.__username, self.__password) == True:
                 self.__status |= selfdef.PHASE_AUTHED
-               # tmpstr = self.__username + '@' + self.__domianname
                 tmplist = [[],]
                 self.__ps.listmail(self.__username, tmplist)
                 self.__mailcount = 0
                 self.__mailsize = 0
                 for mitem in tmplist[0]:
-                    #print mitem
                     self.__maillist.append([mitem[0],mitem[1],'N',mitem[2]])
                     self.__mailsize += mitem[0]
                     self.__mailcount +=1
@@ -76,7 +72,6 @@ class ppop3():
                     self.send('+OK %d %d\r\n'%(self.__mailcount, self.__mailsize))
                     i = 1
                     for mitem in self.__maillist:
-                        #print '%d %d\r\n'%(i,mitem[0])
                         self.send('%d %d\r\n'%(i,mitem[0]))
                         i += 1
                     self.send('.\r\n')
