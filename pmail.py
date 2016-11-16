@@ -33,7 +33,6 @@ if __name__ == '__main__':
 
     smtp_sockfd_s.listen(5)
     pop3_sockfd_s.listen(5)
-	
     detect_fds = [smtp_sockfd_s, pop3_sockfd_s, sys.stdin]
     bRuning = True
     print 'Welcome to pMail Server console.'
