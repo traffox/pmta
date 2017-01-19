@@ -4,7 +4,7 @@ import base64
 import os,re
 import dns.resolver
 
-class ptx():
+class pmta():
     def __init__(self):
         self.errmsg = ''
         
@@ -110,7 +110,7 @@ class ptx():
             self.errmsg = resp_str[0]
             return False
         
-    def txmail(self, hostname, mailfrom, rcptto, bodystr):
+    def sendmail(self, hostname, mailfrom, rcptto, bodystr):
         mail_postfix = re.split('@',rcptto)
 		mx_server_list = dns.resolver.query(mail_postfix[1], 'MX')
 		if len(mx_server_list) == 0:
